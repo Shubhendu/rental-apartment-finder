@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.shubhendu.javaworld</groupId>
 	<artifactId>RentalApartmentHelper</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>RentalApartmentHelper</name>
 	<properties>
 		<!-- <main.basedir>${basedir}/../..</main.basedir> -->
@@ -33,9 +33,6 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.8.1</version>
 		</dependency>
-
-		<!-- <dependency> <groupId>commons-validator</groupId> <artifactId>commons-validator</artifactId> 
-			<version>1.4.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -46,12 +43,6 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.21</version>
 		</dependency>
-
-		<!-- <dependency> <groupId>javax.mail</groupId> <artifactId>javax.mail-api</artifactId> 
-			<groupId>com.sun.mail</groupId> <artifactId>javax.mail</artifactId> <version>1.5.3</version> 
-			</dependency> -->
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -71,25 +62,6 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jetty</artifactId>
-			<scope>provided</scope>
-		</dependency> -->
-
-	<!-- 	<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency> -->
-		
-	<!-- 	<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency> -->
-		
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -109,7 +81,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<!-- <dependency> <groupId>javax.mail</groupId> <artifactId>mail</artifactId> 
 			<version>1.4.5</version> </dependency> -->
 		<!-- <dependency>
@@ -119,9 +90,6 @@
 		</dependency> -->
 		<!-- <dependency> <groupId>com.sendgrid</groupId> <artifactId>sendgrid-java</artifactId> 
 			<version>2.2.0</version> </dependency> -->
-
-
-
 	</dependencies>
 	<build>
 		<plugins>
