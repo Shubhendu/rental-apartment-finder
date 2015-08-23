@@ -41,6 +41,11 @@ public class ApartmentSearchController {
 		return "index";
 	}
 	
+	/**
+	 * 
+	 * @param ApartmentSearchRequestDTO
+	 * @return SearchResponse object in JSON format. Response contains status, list of posting with their details,url and price
+	 */
 	
 	@RequestMapping(value = "/rentalApartments",method=RequestMethod.POST)
 	@ResponseBody

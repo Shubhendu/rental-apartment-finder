@@ -31,6 +31,13 @@ public class ApartmentSearchServiceImpl implements ApartmentSearchService{
 	public static final Integer MAX_STRING_LENGTH = 40;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentSearchServiceImpl.class);
 	
+	
+	/**
+	 * 
+	 * Returns the org.jsoup.nodes.Document object after reading the page provided by url parameter
+	 * @param url
+	 * @return Document
+	 */
 	@Override
 	public Document readPage(String url) {
 		Document doc = null;
@@ -44,6 +51,13 @@ public class ApartmentSearchServiceImpl implements ApartmentSearchService{
 		return doc;
 	}
 
+	/**
+	 * 
+	 * Extracts Time of Ad posting and description of the posting from Craiglist
+	 * @param baseUri
+	 * @param elements
+	 * @param apartmentSearchResponseDTO
+	 */
 	private void extractListingTimeDescriptionAndUrl(String baseUri, Elements elements, ApartmentSearchResponseDTO apartmentSearchResponseDTO){
 		if(elements !=null && !elements.isEmpty()){
 			Elements timeElements = elements.get(0).getElementsByTag("time");
@@ -69,6 +83,11 @@ public class ApartmentSearchServiceImpl implements ApartmentSearchService{
 		}
 	}
 	
+	/**
+	 * Extracts Listings price, size and location from CraigList
+	 * @param elements
+	 * @param apartmentSearchResponseDTO
+	 */
 	private void extractListingPriceSizeAndLocation(Elements elements, ApartmentSearchResponseDTO apartmentSearchResponseDTO){
 
 		if (elements != null && !elements.isEmpty()) {
@@ -108,6 +127,13 @@ public class ApartmentSearchServiceImpl implements ApartmentSearchService{
 	}
 
 	
+	
+	/**
+	 * Extracts Listing Information from Craiglist. Takes baseUrl of the page and Document object as input.
+	 * @param doc
+	 * @param baseUrl
+	 * @return List<ApartmentSearchResponseDTO>
+	 */
 	@Override
 	public List<ApartmentSearchResponseDTO>  extractListings(Document doc,String baseUrl) {
 
@@ -132,6 +158,11 @@ public class ApartmentSearchServiceImpl implements ApartmentSearchService{
 		return apartmentSearchResponseDTOs;
 	}
 
+	/**
+	 * Extracts pagination information from Craiglist listing page.
+	 * @param doc
+	 * @param searchResponse
+	 */
 	@Override
 	public void extractPaginationInformation(Document doc, SearchResponse searchResponse) {
 
