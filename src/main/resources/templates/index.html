@@ -1,0 +1,144 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+	<title>Apartment Finder</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="css/search-form.css">
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular-1.3.11.min.js"></script>
+	<script src="js/gridController.js"></script>
+	
+</head>
+
+<body  ng-controller="myController">
+<h3 align="center" class="page-header">Search apartment listings on Craiglist</h3>
+<div class="container-fluid">
+
+<div class="span4 gray" id="sidebar">
+	<h4>Search Criteria </h4>
+	<form  name="searchForm">
+		
+		<div class="control-group">
+			<label class="control-label" for="selectedCity">City</label>
+			<div class="controls">
+				<select id="selectedCity" name="selectedCity" ng-options="cityObj.city for cityObj in cities" ng-model="apartmentSearch.selectedCity">
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="numberOfBedrooms">Number of
+				Bedrooms</label>
+			<div class="controls">
+				<select id="numberOfBedrooms" name="numberOfBedrooms" ng-options="bedroom.text for bedroom in bedroomsList" ng-model="apartmentSearch.apartMentType">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="numberOfBathrooms">Number of
+				Bathrooms</label>
+			<div class="controls">
+				<select id="numberOfBathrooms" name="numberOfBathrooms" ng-options="bathroom.text for bathroom in bathroomsList" ng-model="apartmentSearch.numberOfBathrooms">
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="minPrice">Minimum Price</label>
+			<div class="controls">
+				<input type="number" id="minPrice" name="minPrice" ng-model="apartmentSearch.minCost" max="99999999">
+				<div class="search__form__error ng-hide" ng-show="searchForm.minPrice.$dirty && (searchForm.minPrice.$error.number || searchForm.minPrice.$error.max)"><em class="search__form__error">!</em>Please enter valid number.</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="maxPrice">Maximum Price</label>
+			<div class="controls">
+				<input type="number" id="maxPrice" name="maxPrice" ng-model="apartmentSearch.maxCost" max="99999999">
+				<div class="search__form__error ng-hide" ng-show="searchForm.maxPrice.$dirty && (searchForm.minPrice.$error.number || searchForm.maxPrice.$error.max)"><em class="search__form__error">!</em>Please enter valid number.</div>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="emailId">Email</label>
+			<div class="controls">
+				<input type="email" id="emailId" name="emailId" placeholder="Email" ng-model="apartmentSearch.emailId">
+				<div class="search__form__error ng-hide" ng-show="searchForm.emailId.$dirty && searchForm.emailId.$error.email"><em class="search__form__error">!</em>Please enter valid email id.</div>
+			</div>
+		</div>
+		
+		
+		<div class="control-group">
+			<label class="control-label" for="rentControlled">Need Rent Control ?</label>
+			<div class="controls">
+				<select id="rentControlled" name="rentControlled" ng-options="rentControl.text for rentControl in rentControls" ng-model="apartmentSearch.rentControlled"></select>
+			</div>
+		</div>
+		
+		
+		<div class="control-group">
+			<div class="controls">
+				<button type="button" ng-disabled="!(searchForm.$valid)" class="btn btn-primary span2" ng-click="submitForm(searchForm.$valid)">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="span12" id="rightpanel">
+	<h4>Results </h4>
+	<!-- <div ng-show="showDataGrid"  ag-grid="gridOptions" class="ag-fresh" style="height: 100%; margin-top: 30px; text-align:center;"></div> -->
+	<div ng-show="showDataGrid" >
+		<table class="table table-striped">
+		<thead>
+		<tr>
+			<th>Listing Date</th>
+			<th>Location</th>
+			<th>Apartment Type</th>
+			<th>Price</th>
+			<th>Description</th>
+			<th>Details</th>
+		</tr>
+		</thead>
+		<tbody>
+			 <tr ng-repeat="x in results | startFrom:currentPage*pageSize | limitTo:pageSize">
+		    		<td>{{ x.postingDate }}</td>
+		   			 <td style="width: 190px"> {{ x.location }}</td>
+		   			 <td>{{ x.size }}</td>
+		   			 <td>{{ x.price }}</td>
+		   			 <td style="width: 300px">{{ x.description }}</td>
+		   			 <td><a href="{{ x.url }}" target="_blank">View Details</a></td>
+		  </tr>
+		</tbody>
+		   
+		</table>
+		    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+		        Previous
+		    </button>
+		    {{currentPage+1}}/{{numberOfPages()}}
+		    <button ng-disabled="currentPage >= results.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+		        Next
+		    </button>
+			<br/>
+		    <button ng-show="isLastPage()" style="margin-top: 40px;"  type="button" class="btn btn-primary span4" ng-click="submitForm(searchForm.$valid)">Get More Records</button>
+		    
+    </div>
+	
+	<div class="alert alert-info" ng-show="showNoRecords" role="alert">
+		No records found....
+	</div>
+	<div class="alert alert-danger" ng-show="showError" role="alert">
+		<h3>Error</h3>
+		Oops, Something went wrong....
+	</div>
+	
+    <img id="spinner" ng-show="dataLoading" ng-src="images/Eli-loader.gif"/>	
+  
+</div>
+</div>
+
+
+</body>
+
+
+</html>
+
+
