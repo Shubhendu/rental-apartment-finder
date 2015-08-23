@@ -13,7 +13,7 @@ There is a note at the bottom of grid which displays the total record count info
 ## Pre-requisites to run the app- 
 -Ensure Java 1.7 or more is installed on your machine.
 	You can check it by running this command on your terminal-
-	```
+	
 	java -version
 
 	If java is installed on your machine, you will get something like this -
@@ -25,7 +25,6 @@ There is a note at the bottom of grid which displays the total record count info
 	If you don't have any java installed on your machine then download it from here-
 	http://www.oracle.com/technetwork/java/javase/downloads/jre7-downloads-1880261.html
 
-	```
 -Ensure that port 9090 is available.If not then "server.port" property in the application.properties needs to be changed. A build will be required if that change is made.
 
 
