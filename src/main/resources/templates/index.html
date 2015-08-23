@@ -77,7 +77,7 @@
 		
 		<div class="control-group">
 			<div class="controls">
-				<button type="button" ng-disabled="!(searchForm.$valid)" class="btn btn-primary span2" ng-click="submitForm(searchForm.$valid)">Submit</button>
+				<button type="button" ng-disabled="!(searchForm.$valid)" class="btn btn-primary span2" ng-click="submitForm(searchForm.$valid,true)">Submit</button>
 			</div>
 		</div>
 	</form>
@@ -118,7 +118,8 @@
 		        Next
 		    </button>
 			<br/>
-		    <button ng-show="isLastPage()" style="margin-top: 40px;"  type="button" class="btn btn-primary span4" ng-click="submitForm(searchForm.$valid)">Get More Records</button>
+			<p  style="margin-top: 20px;" ng-show="!isLastPage() && (results.length < totalRecords)" ><i>*Note: Showing {{startingRecordCount}} to {{endingRecordCount}} records out of {{totalRecords}} records on server.<br/>For more records click "Get More Records" button on last page.</i></p>
+		    <button ng-show="isLastPage()" style="margin-top: 40px;"  type="button" class="btn btn-primary span4" ng-click="submitForm(searchForm.$valid,false)">Get More Records</button>
 		    
     </div>
 	

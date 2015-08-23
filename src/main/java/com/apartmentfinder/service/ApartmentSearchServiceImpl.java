@@ -141,10 +141,9 @@ public class ApartmentSearchServiceImpl implements ApartmentSearchService{
 		Elements nextPageUrlElements = doc.select("a[class=button next]");
 
 		if (doc != null) {
-
+			int  totalRecordsCount = 0;
 			if (totalCountElements != null && !totalCountElements.isEmpty()) {
 				String totalRecords = totalCountElements.get(0).text();
-				int  totalRecordsCount = 0;
 				try{
 					 totalRecordsCount = Integer.valueOf(totalRecords);
 				}catch(NumberFormatException e){

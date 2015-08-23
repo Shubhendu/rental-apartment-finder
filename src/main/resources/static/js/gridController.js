@@ -5,10 +5,10 @@ app.controller('myController', function($scope, $http, $filter) {
 	$scope.dataLoading = false;
 	$scope.showError = false;
 	$scope.bathroomsList = [ { value :'',text : "All bathrooms"}, {value : 1,text : "1+ bathrooms"}, {value : 2,text : "2+ bathrooms"}, {value : 3,text : "3+ bathrooms"}, 
-	                         { value : 4,text : "4+ bathrooms"}, {value : 5,text : "5+ bathrooms"} ];
+	                         { value : 4,text : "4+ bathrooms"}, {value : 5,text : "5+ bathrooms"},{value : 6,text : "6+ bathrooms"},{value : 7,text : "7+ bathrooms"},{value : 8,text : "8+ bathrooms"} ];
 
 	$scope.bedroomsList = [ { value :'',text : "All bedrooms"}, {value : 1,text : "1+ bedrooms"}, {value : 2,text : "2+ bedrooms"}, {value : 3,text : "3+ bedrooms"}, 
-	                         { value : 4,text : "4+ bedrooms"}, {value : 5,text : "5+ bedrooms"} ];
+	                         { value : 4,text : "4+ bedrooms"}, {value : 5,text : "5+ bedrooms"},{value : 6,text : "6+ bedrooms"},{value : 7,text : "7+ bedrooms"},{value : 8,text : "8+ bedrooms"} ];
 
 	$scope.rentControls= [ { value : true , text : 'Yes'},{value : false , text : 'No'}];
 	
@@ -26,18 +26,22 @@ app.controller('myController', function($scope, $http, $filter) {
     });
 	
 	$scope.clearForm = function(){
+		$scope.startingRecordCount = 0;
+		$scope.endingRecordCount = 0;
 		$scope.showDataGrid  = false;
 		$scope.results = [];
 		$scope.totalRecords = [];
 		$scope.showNoRecords = false;
 		$scope.showError = false;
-		$scope.nextPageUrl = null;
 		$scope.currentPage = 0;
 	}
 	
 	
-	$scope.submitForm = function(isValid){
+	$scope.submitForm = function(isValid,resetSearchFilter){
 			if(isValid){
+				if(resetSearchFilter){
+					$scope.nextPageUrl = null;
+				}
 				$scope.clearForm();
 				if($scope.apartmentSearch.maxCost < $scope.apartmentSearch.minCost){
 					alert("Maximum rent should be greater than minimum rent");
@@ -75,10 +79,13 @@ app.controller('myController', function($scope, $http, $filter) {
 				                		
 				                		if(responseObj.apartmentSearchResponse == null || responseObj.apartmentSearchResponse.length ==0){
 				                			$scope.clearForm();
+				                			$scope.nextPageUrl = null;
 				                			$scope.showNoRecords = true;
 				                		}else{
 				                			$scope.showNoRecords = false;
 				                			$scope.showDataGrid = true;
+				                			$scope.startingRecordCount = responseObj.startingRecordCount;
+				                			$scope.endingRecordCount = responseObj.endingRecordCount;
 				                			$scope.results = responseObj.apartmentSearchResponse;
 					                		$scope.totalRecords = responseObj.totalRecordsCount;
 					                		$scope.nextPageUrl = responseObj.nextPageUrl;
@@ -86,10 +93,12 @@ app.controller('myController', function($scope, $http, $filter) {
 				                		}
 				                		
 				                	}else{
+				                		$scope.nextPageUrl = null;
 				                		$scope.showDataGrid  = false;
 				                		$scope.showError = true;
 				                	}
 			            	 	}else{
+			            	 		$scope.nextPageUrl = null;
 			            	 		$scope.showDataGrid  = false;
 			            	 		$scope.showError = true;
 			                        
@@ -104,7 +113,8 @@ app.controller('myController', function($scope, $http, $filter) {
 			
 		}
 	};
-
+		$scope.startingRecordCount = 0;
+		$scope.endingRecordCount = 0;
 	  	$scope.currentPage = 0;
 	    $scope.pageSize = 10;
 	    $scope.results = [];
